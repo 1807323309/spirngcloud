@@ -1,0 +1,11 @@
+spring:
+  #  configClient和dev拼接起来找到本地配置
+  application:
+    name: configclient
+  profiles:
+    active: dev
+  cloud:
+    config:
+      #      本地configServer配置的端口号
+      uri: http://localhost:8762
+      fail-fast: true

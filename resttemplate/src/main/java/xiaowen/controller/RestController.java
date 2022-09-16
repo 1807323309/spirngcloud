@@ -1,0 +1,46 @@
+package xiaowen.controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import xiaowen.entity.Student;
+
+import java.util.Collection;
+
+@org.springframework.web.bind.annotation.RestController
+@RequestMapping("/rest")
+public class RestController {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping("/findAll")
+    public Collection<Student> findAll(){
+        //结果集类型Collection.class
+        return restTemplate.getForEntity("http://localhost:8010/student/findAll",Collection.class).getBody();
+    }
+
+    @GetMapping("/findAll2")
+    public Collection<Student> findAll2(){
+        return restTemplate.getForObject("http://localhost:8010/student/findAll",Collection.class);
+    }
+
+    @GetMapping("/findById/{id}")
+    public Student findById(@PathVariable("id") long id){
+        return restTemplate.getForObject("http://localhost:8010/student/finddById/{id}",Student.class,id);
+    }
+
+    @PostMapping("/save")
+    public void save(@RequestBody Student student){
+        restTemplate.postForObject("http://localhost:8010/student/save",student,null);
+    }
+
+    @PutMapping("/update")
+    public void update(@RequestBody Student student){
+        restTemplate.put("http://localhost:8010/student/update",student);
+    }
+
+    @DeleteMapping("/deleteById{id}")
+    public void deleteById(@PathVariable("id") long id){
+        restTemplate.delete("http://localhost:8010/student/deleteById/{id}",id);
+    }
+}

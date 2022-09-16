@@ -1,0 +1,25 @@
+eureka（注册中心）负责注册provider和consumer的服务信息
+provider负责与数据库进行交互，实现数据持久化，并给consumer提供服务
+consumer与前端交互，通过与Eureka同源的feign组件调用provider提供的服务实现业务逻辑，给前端响应
+zuul服务网关、统一访问地址的，不用记所有的服务地址。
+服务者和消费者是相对意义下的，服务者有时候也是消费者，消费者有时候也是服务者
+除了注册中心自己 ，其余客户端和ip地址均需要去注册中心注册（eurekaServer）
+
+Feign
+●什么是Feign?
+与Ribbon一样，Feign也是由Netflix提供的，Feign是一个声明式、模版化的WebService客户端，
+它简化了开发者编写Web服务客户端的操作，开发者可以通过简单的接口和注解来调用HTTPAPI，
+SpringCloudFeign它整合了Ribbon和Hvstrix，具有可插拔、基于注解、负载均衡、服务熔断等一系列便捷功能。
+相比较于Ribbon+RestTemplate的方式，Feign大大简化了代码的开发，Feign支持多种注解，
+包括Feign注解、AX-RS注解、SpringMVC注解等，SpringCloud对Feing进行了优化，整合了Ribbon和Eureka，
+从而让 Feign的使用更加方便。
+●Ribbon和Feign的区别
+Ribbon是一个通用的HTTP客户端工具，Feign是基于Ribbon实现的。
+●Feign的tedian
+1、Feign是一个声明式的WebService客户端。
+2、支持 Feign 注解、SpringMVC注解、JAX-RS注解。
+3、Feign基于Ribbon实现，使用起来更加简单。
+4 Feign集成了Hystrix，具备服务熔断的功能。
+
+Hystrix数据监控需要结合Spring Boot Actuator来使用，Actuator 提供了对服务的健康健康、数据统计，
+可以通过hystrix-stream节点获取监控的请求数据，提供了可视化的监控界面。
